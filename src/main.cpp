@@ -28,6 +28,7 @@ CCriticalSection cs_setpwalletRegistered;
 set<CWallet*> setpwalletRegistered;
 
 CCriticalSection cs_main;
+bool doNotBroadcastBlocks = false;
 
 CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
