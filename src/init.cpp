@@ -850,6 +850,9 @@ bool AppInit2()
         printf(" rescan      %15"PRId64"ms\n", GetTimeMillis() - nStart);
     }
 
+    // ********************************************************* Step 8.5: set block broadcasting
+	    doNotBroadcastBlocks = GetBoolArg("-dontbroadcastblocks", false);
+    
     // ********************************************************* Step 9: import blocks
 
     if (mapArgs.count("-loadblock"))
