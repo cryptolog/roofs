@@ -3136,7 +3136,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 printf("received getdata for: %s\n", inv.ToString().c_str());
 
             if (inv.type == MSG_BLOCK)
-            {
+               // 51 darosior 
+ {               
+  if (!doNotBroadcastBlocks)          {
                 // Send block from disk
                 map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(inv.hash);
                 if (mi != mapBlockIndex.end())
@@ -3158,6 +3160,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                     }
                 }
             }
+     }            
             else if (inv.IsKnownType())
             {
                 // Send stream from relay memory
@@ -3189,6 +3192,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     else if (strCommand == "getblocks")
     {
+    	// 51 darosior
+        if (!doNotBroadcastBlocks) {
         CBlockLocator locator;
         uint256 hashStop;
         vRecv >> locator >> hashStop;
@@ -3223,6 +3228,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             }
         }
     }
+ }        
     else if (strCommand == "checkpoint")
     {
         CSyncCheckpoint checkpoint;
@@ -3240,6 +3246,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     else if (strCommand == "getheaders")
     {
+    	// 51 darosior
+        if (!doNotBroadcastBlocks) {
         CBlockLocator locator;
         uint256 hashStop;
         vRecv >> locator >> hashStop;
@@ -3272,7 +3280,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         }
         pfrom->PushMessage("headers", vHeaders);
     }
-
+}
 
     else if (strCommand == "tx")
     {
@@ -3341,6 +3349,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     else if (strCommand == "block")
     {
+    	// 51 darosior
+        if (!doNotBroadcastBlocks) {
         CBlock block;
         vRecv >> block;
         uint256 hashBlock = block.GetHash();
@@ -3354,7 +3364,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             mapAlreadyAskedFor.erase(inv);
         if (block.nDoS) pfrom->Misbehaving(block.nDoS);
     }
-
+}
 
     else if (strCommand == "getaddr")
     {
