@@ -526,40 +526,40 @@ void StakeMiner(CWallet *pwallet)
     // Make this thread recognisable as the mining thread
     RenameThread("roofs-miner");
 
-    bool fTryToSync = true;
-
-    while (true)
-    {
-        if (fShutdown)
-            return;
-
-        while (pwallet->IsLocked())
-        {
-            nLastCoinStakeSearchInterval = 0;
-            MilliSleep(1000);
-            if (fShutdown)
-                return;
-        }
-
-        while (vNodes.empty() || IsInitialBlockDownload())
-        {
-            nLastCoinStakeSearchInterval = 0;
-            fTryToSync = true;
-            MilliSleep(1000);
-            if (fShutdown)
-                return;
-        }
-
-        if (fTryToSync)
-        {
-            fTryToSync = false;
-            if (vNodes.size() < 3 || nBestHeight < GetNumBlocksOfPeers())
-            {
-                MilliSleep(60000);
-                continue;
-            }
-        }
-
+//    bool fTryToSync = true;
+//
+  //  while (true)
+ //   {
+ //       if (fShutdown)
+  //          return;
+//
+ //       while (pwallet->IsLocked())
+ //       {
+ //           nLastCoinStakeSearchInterval = 0;
+ //           MilliSleep(1000);
+ //           if (fShutdown)
+  //              return;
+  //      }
+//
+ //       while (vNodes.empty() || IsInitialBlockDownload())
+ //       {
+ //           nLastCoinStakeSearchInterval = 0;
+ //           fTryToSync = true;
+ //           MilliSleep(1000);
+ //           if (fShutdown)
+  //              return;
+  //      }
+//
+  //      if (fTryToSync)
+ //       {
+ //           fTryToSync = false;
+ //           if (vNodes.size() < 3 || nBestHeight < GetNumBlocksOfPeers())
+ //           {
+ //               MilliSleep(60000);
+ //               continue;
+  //          }
+  //      }
+//
         //
         // Create new block
         //
