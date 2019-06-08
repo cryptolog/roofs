@@ -525,7 +525,7 @@ void StakeMiner(CWallet *pwallet)
 
     // Make this thread recognisable as the mining thread
     RenameThread("roofs-miner");
-
+}
 //    bool fTryToSync = true;
 //
   //  while (true)
